@@ -33,7 +33,7 @@ public class JavaSweeper extends JFrame
             {
                 super.paintComponent(g);
                 for (Coord coord : Ranges.getAllCoords()) {
-                    g.drawImage((Image)Box.FLAGED.image, 
+                    g.drawImage((Image)Box.values()[(coord.x + coord.y)%Box.values().length].image, 
                                 coord.x * IMAGE_SIZE, 
                                 coord.y * IMAGE_SIZE, 
                                 this);                    
@@ -51,6 +51,7 @@ public class JavaSweeper extends JFrame
         {
             box.image = getImage(box.name().toLowerCase());
         }
+        setIconImage(getImage("icon"));
     }
 
     private void initFrame() {
