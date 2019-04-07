@@ -20,4 +20,11 @@ public enum Box
     NOBOMB;
     
     public Object image;
+
+    Box nextNumberBox() 
+    {
+        return Box.values()[this.ordinal() + 1];
+    }
+    
+    
 }
