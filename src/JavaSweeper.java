@@ -1,5 +1,7 @@
 import sweeper.Box;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.*;
 import sweeper.Coord;
 import sweeper.Game;
@@ -13,6 +15,7 @@ public class JavaSweeper extends JFrame
     private final int BOMBS = 10;    
     private final int IMAGE_SIZE = 50;
     private JPanel panel;
+    private JLabel label;
 
     public static void main(String[] args) 
     {
@@ -23,6 +26,7 @@ public class JavaSweeper extends JFrame
     {
         game = new Game(COLS, ROWS, BOMBS);
         game.Start();
+        intLabel();
         setImages();
         initPanel();
         initFrame();
@@ -44,6 +48,28 @@ public class JavaSweeper extends JFrame
                 }
             }                   
         };
+        
+        panel.addMouseListener(new MouseAdapter() 
+        {
+            @Override
+            public void mousePressed(MouseEvent e)
+            {
+                int x = e.getX() / IMAGE_SIZE;
+                int y = e.getY() / IMAGE_SIZE;
+                Coord coord = new Coord(x, y);
+                switch (e.getButton())
+                {
+                    case MouseEvent.BUTTON1 : game.pressLeftButton(coord);
+                    break;
+                    case MouseEvent.BUTTON3 : game.pressRightButton(coord);
+                    break;
+                    case MouseEvent.BUTTON2 : game.Start();
+                    break;
+                }
+                panel.repaint();
+            }
+        });
+        
         panel.setPreferredSize(new Dimension(Ranges.getSize().x * IMAGE_SIZE, 
                                              Ranges.getSize().y * IMAGE_SIZE));
         add(panel);
@@ -73,6 +99,14 @@ public class JavaSweeper extends JFrame
         ImageIcon icon = new ImageIcon(getClass().getResource(filename));
         return icon.getImage();
     };
+
+    private void intLabel() 
+    {
+        label = new JLabel("Welcome");
+        Font font = new Font("Arial", Font.BOLD, 20);
+        label.setFont(font);
+        add(label, BorderLayout.SOUTH);
+    }
 
 
             
