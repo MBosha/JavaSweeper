@@ -39,11 +39,37 @@ public class Game
     
     public void pressLeftButton(Coord coord)
     {
-        flag.setOpenedToBox(coord);
+        openBox(coord);
     }
     
     public void pressRightButton(Coord coord)
     {
         flag.togleFlagedToBox(coord);
-    }    
+    }   
+    
+    private void openBox(Coord coord)
+    {
+        switch (flag.get(coord))
+        {
+            case OPENED : break;
+            case FLAGED : break;
+            case CLOSED : 
+                switch (bomb.get(coord))
+                {
+                    case ZERO : openBoxsesAroundZero(coord); break;
+                    case BOMB : break;
+                    default : flag.setOpenedToBox(coord); break;
+                }
+        }
+    }
+    
+    private void openBoxsesAroundZero(Coord coord)
+    {
+        flag.setOpenedToBox(coord);
+        for(Coord around : Ranges.getCoordArround(coord))
+        {
+            openBox(around);
+        }
+    }
+            
 }

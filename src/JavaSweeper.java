@@ -66,6 +66,7 @@ public class JavaSweeper extends JFrame
                     case MouseEvent.BUTTON2 : game.Start();
                     break;
                 }
+                label.setText(getMessage());
                 panel.repaint();
             }
         });
@@ -102,10 +103,22 @@ public class JavaSweeper extends JFrame
 
     private void intLabel() 
     {
-        label = new JLabel("Welcome");
-        Font font = new Font("Arial", Font.BOLD, 20);
+        label = new JLabel(getMessage());
+        Font font = new Font("Arial", Font.BOLD, 18);
         label.setFont(font);
         add(label, BorderLayout.SOUTH);
+    }
+    
+    private String getMessage()
+    {
+        switch(game.getState())
+        {            
+            case BOMBED : return "Ba-Da-Boom! You Lose!";
+            case WINNER : return "Congratulations! All bomb have been marcket!";
+            case PLAYED :
+            default: return "Welcome!";
+        }
+            
     }
 
 
