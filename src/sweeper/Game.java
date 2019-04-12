@@ -2,8 +2,8 @@ package sweeper;
 
 public class Game 
 {    
-    private Bomb bomb;
-    private Flag flag;
+    private final Bomb bomb;
+    private final Flag flag;
     private GameState state;
 
     public GameState getState() 
@@ -108,26 +108,24 @@ public class Game
     private void openBoxsesAroundZero(Coord coord)
     {
         flag.setOpenedToBox(coord);
-        for(Coord around : Ranges.getCoordArround(coord))
-        {
+        Ranges.getCoordArround(coord).forEach((around) -> {
             openBox(around);
-        }
+        });
     }
 
     private void openBombs(Coord bombedCoord) 
     {
         flag.setBombedToBox(bombedCoord);
-        for (Coord coord : Ranges.getAllCoords()) 
-        {
+        Ranges.getAllCoords().forEach((coord) -> {
             if (bomb.get(coord) == Box.BOMB)
             {
-                flag.setOpenedToClosedBox(coord);                
-            }   
+                flag.setOpenedToClosedBox(coord);
+            }
             else 
             {
                 flag.setNoBombToFlagedBox(coord);
             }
-        }
+        });
         
         state = GameState.BOMBED;
     }
@@ -138,13 +136,9 @@ public class Game
         {
             if (bomb.get(coord).getNumber() == flag.getCountFlagedBoxesAround(coord))
             {
-                for (Coord around : Ranges.getCoordArround(coord))
-                {
-                    if (Box.CLOSED == flag.get(around))
-                    {
-                        openBox(around);
-                    }                    
-                }                                 
+                Ranges.getCoordArround(coord).stream().filter((around) -> (Box.CLOSED == flag.get(around))).forEachOrdered((around) -> {
+                    openBox(around);
+                });                                 
             }            
         }
     }

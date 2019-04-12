@@ -55,15 +55,8 @@ class Bomb
 
     private void incNumbersAroundBombs(Coord coord) 
     {
-        for (Coord around: Ranges.getCoordArround(coord))
-        {
-            if (Box.BOMB != bombMap.get(around))
-            {
-                bombMap.set(around, bombMap.get(around).nextNumberBox());
-            }
-        }
+        Ranges.getCoordArround(coord).stream().filter((around) -> (Box.BOMB != bombMap.get(around))).forEachOrdered((around) -> {
+            bombMap.set(around, bombMap.get(around).nextNumberBox());
+        });
     }
-    
-    
-    
 }

@@ -9,7 +9,7 @@ import sweeper.Ranges;
 
 public class JavaSweeper extends JFrame
 {
-    private Game game;
+    final private Game game;
     private final int COLS = 9;
     private final int ROWS = 9;
     private final int BOMBS = 5;    
@@ -40,12 +40,12 @@ public class JavaSweeper extends JFrame
             protected void paintComponent(Graphics g) 
             {
                 super.paintComponent(g);
-                for (Coord coord : Ranges.getAllCoords()) {
-                    g.drawImage((Image)game.getBox(coord).image, 
-                                coord.x * IMAGE_SIZE, 
-                                coord.y * IMAGE_SIZE, 
-                                this);                    
-                }
+                Ranges.getAllCoords().forEach((coord) -> {
+                    g.drawImage((Image)game.getBox(coord).image,
+                            coord.x * IMAGE_SIZE,
+                            coord.y * IMAGE_SIZE,
+                            this);
+                });
             }                   
         };
         

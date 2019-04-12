@@ -58,13 +58,9 @@ class Flag
 
     void setFlagedToLastClosedBoxes() 
     {
-        for (Coord coord : Ranges.getAllCoords()) 
-        {
-            if (Box.CLOSED == flagMap.get(coord))
-            {
-                setFlagedToBox(coord);
-            }            
-        }
+        Ranges.getAllCoords().stream().filter((coord) -> (Box.CLOSED == flagMap.get(coord))).forEachOrdered((coord) -> {
+            setFlagedToBox(coord);
+        });
                 
     }
 
@@ -95,13 +91,7 @@ class Flag
     int getCountFlagedBoxesAround(Coord coord) 
     {
         int count = 0;
-        for (Coord around : Ranges.getCoordArround(coord)) 
-        {
-            if (Box.FLAGED == flagMap.get(around))
-            {
-                count++;
-            }             
-        }
+        count = Ranges.getCoordArround(coord).stream().filter((around) -> (Box.FLAGED == flagMap.get(around))).map((_item) -> 1).reduce(count, Integer::sum);
         return count;
     }
 

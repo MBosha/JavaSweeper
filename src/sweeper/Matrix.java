@@ -2,14 +2,13 @@ package sweeper;
 
 class Matrix 
 {
-    private Box[][] matrix;    
+    private final Box[][] matrix;    
 
     Matrix(Box box) {
         matrix = new Box[Ranges.getSize().x][Ranges.getSize().y];
-        for (Coord coord : Ranges.getAllCoords()) 
-        {
-            this.matrix[coord.x][coord.y] = box;            
-        }
+        Ranges.getAllCoords().forEach((coord) -> {
+            this.matrix[coord.x][coord.y] = box;
+        });
     }
 
     Box get(Coord coord) {
@@ -26,8 +25,4 @@ class Matrix
             matrix[coord.x][coord.y]= box;
         }
     }
-    
-    
-    
-    
 }

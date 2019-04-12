@@ -7,7 +7,7 @@ public class Ranges
 {
     static private Coord size;
     static private ArrayList<Coord> allCoord;
-    static private Random random = new Random();
+    private static final Random random = new Random();
 
     public static ArrayList<Coord> getAllCoords() 
     {
@@ -45,7 +45,7 @@ public class Ranges
     static ArrayList<Coord> getCoordArround (Coord coord)
     {
         Coord arround;
-        ArrayList<Coord> list = new ArrayList<Coord>();
+        ArrayList<Coord> list = new ArrayList<>();
         for (int x = coord.x - 1; x <= coord.x + 1; x++) {
             for (int y = coord.y - 1; y <= coord.y + 1; y++) {
                 if (isRange(arround = new Coord(x, y)))
