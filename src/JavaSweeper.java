@@ -125,12 +125,6 @@ public class JavaSweeper extends JFrame
                 {
                     return "Think twice! Flfgged " + game.getTotalFlaged() + " of " + game.getTotalBombs() + " bombs.";
                 }
-                
-        }
-            
-    }
-
-
-            
-    
+        }            
+    }    
 }
