@@ -56,5 +56,54 @@ class Flag
        }
     }
 
+    void setFlagedToLastClosedBoxes() 
+    {
+        for (Coord coord : Ranges.getAllCoords()) 
+        {
+            if (Box.CLOSED == flagMap.get(coord))
+            {
+                setFlagedToBox(coord);
+            }            
+        }
+                
+    }
+
+    void setBombedToBox(Coord coord) 
+    {
+        flagMap.set(coord, Box.BOMBED);
+    }
+
+    void setOpenedToClosedBox(Coord coord) 
+    {
+        if (Box.CLOSED == flagMap.get(coord))
+        {
+            flagMap.set(coord, Box.OPENED);
+        }
+        
+    }
+
+    void setNoBombToFlagedBox(Coord coord) 
+    {
+        if (Box.FLAGED == flagMap.get(coord))
+        {
+            flagMap.set(coord, Box.NOBOMB);
+            
+        }
+        
+    }
+
+    int getCountFlagedBoxesAround(Coord coord) 
+    {
+        int count = 0;
+        for (Coord around : Ranges.getCoordArround(coord)) 
+        {
+            if (Box.FLAGED == flagMap.get(around))
+            {
+                count++;
+            }             
+        }
+        return count;
+    }
+
     
 }
